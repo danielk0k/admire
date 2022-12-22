@@ -1,7 +1,7 @@
 import Head from "next/head";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { useState } from "react";
-import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
+import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
 import Thumbnail from "../components/thumbnail";
@@ -59,19 +59,60 @@ function Home() {
       <Grid
         templateRows="repeat(4, 1fr)"
         templateColumns="repeat(3, 1fr)"
-        gap={4}
+        gap={6}
+        as="main"
       >
-        <GridItem rowSpan={2} colSpan={1}>
-          <Box>
-            <Heading>Admire</Heading>
-            <Text>Click Curate Share</Text>
-            <Button onClick={getAccount}>Connect</Button>
-          </Box>
+        <GridItem colSpan={1}>
+          <VStack gap={8}>
+            <Box>
+              <Heading size="4xl">Admire</Heading>
+              <Text fontSize="3xl">Click Curate Share</Text>
+              <Text align="justify" paddingTop={4}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur.
+              </Text>
+            </Box>
+            <Button variant="outline" size="lg" onClick={getAccount}>
+              Connect
+            </Button>
+          </VStack>
         </GridItem>
         {sample.map((metadata, index) => {
+          if (index === 7) {
+            return (
+              <>
+                <GridItem>
+                  <VStack gap={8}>
+                    <Box>
+                      <Heading size="4xl">Admire</Heading>
+                      <Text fontSize="3xl">Click Curate Share</Text>
+                      <Text align="justify">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </Text>
+                    </Box>
+                  </VStack>
+                </GridItem>
+                <Thumbnail metadata={metadata} key={index} />
+              </>
+            );
+          }
           return <Thumbnail metadata={metadata} key={index} />;
         })}
       </Grid>
+      <VStack as="footer" paddingTop={20}>
+        <Heading size="md">Admire</Heading>
+        <Text fontSize="sm">Click Curate Share</Text>
+      </VStack>
     </>
   );
 }

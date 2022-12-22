@@ -10,18 +10,22 @@ import {
   HStack,
   Box,
   Text,
+  Heading,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import Image from "next/image";
 
 function Card({ metadata, isOpen, onClose }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="full">
+    <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered={true}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{metadata.title}</ModalHeader>
+        <ModalHeader>
+          <Heading size="xl">{metadata.title}</Heading>
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <HStack>
+          <HStack gap={20}>
             <Image
               src={
                 metadata.media.length === 0
@@ -32,18 +36,21 @@ function Card({ metadata, isOpen, onClose }) {
               height="400"
             />
             <Box>
-              <Text>{metadata.description}</Text>
-              <Text>{metadata.tokenId}</Text>
-              <Text>{metadata.tokenType}</Text>
-              <Text>{metadata.contract.address}</Text>
+              <Text fontSize="xl">{metadata.description}</Text>
+              <Text fontSize="lg">Token ID: {metadata.tokenId}</Text>
+              <Text fontSize="lg">Token Type: {metadata.tokenType}</Text>
+              <Text fontSize="lg">
+                Contract Address: {metadata.contract.address}
+              </Text>
               <Text>{metadata.rawMetadata.attribute}</Text>
             </Box>
           </HStack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
-          </Button>
+          <ButtonGroup gap={4}>
+            <Button variant="outline">Prev</Button>
+            <Button variant="outline">Next</Button>
+          </ButtonGroup>
         </ModalFooter>
       </ModalContent>
     </Modal>

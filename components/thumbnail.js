@@ -13,7 +13,7 @@ function Thumbnail({ metadata }) {
             : metadata.media[0].gateway
         }
         onClick={onOpen}
-        width="400"
+        width="600"
         height="400"
       />
       <Card metadata={metadata} isOpen={isOpen} onClose={onClose}></Card>
