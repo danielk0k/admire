@@ -8,6 +8,10 @@ function Curator() {
   const router = useRouter();
   const [NFTs, setNFTs] = useState([]);
   const { account } = router.query;
+  if (!account) {
+    router.push("/");
+    console.error("Missing account. Please connect your MetaMask first!");
+  }
   const fetchNFTs = async () => {
     try {
       const nfts = await alchemy.nft.getNftsForOwner(
@@ -18,22 +22,18 @@ function Curator() {
       console.error(error.message);
     }
   };
-  if (!account) {
-    console.error("Missing account. Please connect your MetaMask first!");
-    router.push("/");
-  }
   useEffect(() => fetchNFTs, [account]);
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-      <GridItem rowSpan={2} colSpan={1}>
+      <GridItem colSpan={1}>
         <Box>
           <Heading>Admire</Heading>
           <Text>Click Curate Share</Text>
         </Box>
       </GridItem>
-      {NFTs.map((nft, index) => {
-        return <Thumbnail metadata={nft} key={index} />;
+      {NFTs.map((metadata, index) => {
+        return <Thumbnail metadata={metadata} key={index} />;
       })}
     </Grid>
   );

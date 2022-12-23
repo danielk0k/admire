@@ -43,7 +43,7 @@ function Home() {
           }
         });
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -56,12 +56,7 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid
-        templateRows="repeat(4, 1fr)"
-        templateColumns="repeat(3, 1fr)"
-        gap={6}
-        as="main"
-      >
+      <Grid templateColumns="repeat(3, 1fr)" gap={6} as="main">
         <GridItem colSpan={1}>
           <VStack gap={8}>
             <Box>
@@ -85,7 +80,7 @@ function Home() {
           if (index === 7) {
             return (
               <>
-                <GridItem>
+                <GridItem colSpan={1}>
                   <VStack gap={8}>
                     <Box>
                       <Heading size="4xl">Admire</Heading>
@@ -105,8 +100,9 @@ function Home() {
                 <Thumbnail metadata={metadata} key={index} />
               </>
             );
+          } else {
+            return <Thumbnail metadata={metadata} key={index} />;
           }
-          return <Thumbnail metadata={metadata} key={index} />;
         })}
       </Grid>
       <VStack as="footer" paddingTop={20}>

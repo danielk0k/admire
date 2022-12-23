@@ -1,5 +1,4 @@
-import { GridItem, useDisclosure } from "@chakra-ui/react";
-import Image from "next/image";
+import { GridItem, Image, useDisclosure } from "@chakra-ui/react";
 import Card from "./card";
 
 function Thumbnail({ metadata }) {
@@ -7,14 +6,9 @@ function Thumbnail({ metadata }) {
   return (
     <GridItem colSpan={1}>
       <Image
-        src={
-          metadata.media.length === 0
-            ? "https://place-hold.it/300"
-            : metadata.media[0].gateway
-        }
+        src={metadata.media[0].gateway}
+        fallbackSrc="https://place-hold.it/800"
         onClick={onOpen}
-        width="600"
-        height="400"
       />
       <Card metadata={metadata} isOpen={isOpen} onClose={onClose}></Card>
     </GridItem>

@@ -12,8 +12,8 @@ import {
   Text,
   Heading,
   ButtonGroup,
+  Image,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 function Card({ metadata, isOpen, onClose }) {
   return (
@@ -27,13 +27,8 @@ function Card({ metadata, isOpen, onClose }) {
         <ModalBody>
           <HStack gap={20}>
             <Image
-              src={
-                metadata.media.length === 0
-                  ? "https://place-hold.it/300"
-                  : metadata.media[0].gateway
-              }
-              width="400"
-              height="400"
+              src={metadata.media[0].gateway}
+              fallbackSrc="https://place-hold.it/800"
             />
             <Box>
               <Text fontSize="xl">{metadata.description}</Text>
