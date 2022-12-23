@@ -7,25 +7,22 @@ import Thumbnail from "../components/thumbnail";
 function Curator() {
   const router = useRouter();
   const [NFTs, setNFTs] = useState([]);
-
+  const { account } = router.query;
   const fetchNFTs = async () => {
     try {
-      const { account } = router.query;
-      if (!account) {
-        router.push("/");
-        throw new Error("Missing account. Please connect your MetaMask first!");
-      }
-      alchemy.nft
-        .getNftsForOwner("0x6f69DCf34092CA364ff179a504Dc19d876E86eae")
-        .then((nfts) => {
-          console.log(nfts);
-          setNFTs([...nfts.ownedNfts]);
-        });
+      const nfts = await alchemy.nft.getNftsForOwner(
+        "0x6f69DCf34092CA364ff179a504Dc19d876E86eae"
+      );
+      setNFTs([...nfts.ownedNfts]);
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
-  useEffect(() => fetchNFTs, [NFTs]);
+  if (!account) {
+    console.error("Missing account. Please connect your MetaMask first!");
+    router.push("/");
+  }
+  useEffect(() => fetchNFTs, [account]);
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap={4}>
@@ -35,8 +32,8 @@ function Curator() {
           <Text>Click Curate Share</Text>
         </Box>
       </GridItem>
-      {NFTs.map((nft) => {
-        return <Thumbnail metadata={nft} />;
+      {NFTs.map((nft, index) => {
+        return <Thumbnail metadata={nft} key={index} />;
       })}
     </Grid>
   );
