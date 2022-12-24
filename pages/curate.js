@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
+import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
 import alchemy from "../components/alchemy";
 import Thumbnail from "../components/thumbnail";
 import Head from "next/head";
