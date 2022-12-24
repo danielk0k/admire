@@ -25,7 +25,6 @@ const config = {
 const styles = {
   global: {
     "html, body": {
-      margin: "30px",
       background: "#090d10",
     },
   },
