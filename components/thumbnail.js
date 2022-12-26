@@ -8,7 +8,7 @@ function Thumbnail({ metadata, isCuration, handleCuration }) {
     <GridItem colSpan={1}>
       {isCuration ? (
         <IconButton
-          variant="ghost"
+          variant="outline"
           size="lg"
           colorScheme="green"
           isRound
@@ -24,6 +24,8 @@ function Thumbnail({ metadata, isCuration, handleCuration }) {
         src={metadata.media[0].gateway}
         fallbackSrc="https://place-hold.it/800"
         onClick={onOpen}
+        opacity="0.95"
+        _hover={{ opacity: "1" }}
       />
       <Card metadata={metadata} isOpen={isOpen} onClose={onClose}></Card>
     </GridItem>

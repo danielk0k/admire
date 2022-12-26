@@ -11,9 +11,8 @@ function Curator() {
   const [curation, setCuration] = useState([]);
   const { account } = router.query;
 
-  const handleCuration = () => {
-    // Set curation
-    console.log("clicked");
+  const handleCuration = (index) => {
+    curation[index] = !curation[index];
   };
 
   const fetchNFTs = async () => {
@@ -24,9 +23,10 @@ function Curator() {
       }
 
       const nfts = await alchemy.nft.getNftsForOwner(
-        "0x6f69DCf34092CA364ff179a504Dc19d876E86eae"
+        "0xd02Cf0BFae434D95E634F7A303452b85e14b65a9"
       );
       setNFTs([...nfts.ownedNfts]);
+      setCuration([...nfts.ownedNfts].fill(false));
     } catch (error) {
       console.error(error.message);
     }
@@ -79,7 +79,7 @@ function Curator() {
             <Thumbnail
               metadata={metadata}
               isCuration={true}
-              handleCuration={handleCuration}
+              handleCuration={() => handleCuration(index)}
               key={index}
             />
           );
