@@ -6,16 +6,23 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
-  HStack,
-  Box,
   Text,
   Heading,
   ButtonGroup,
   Image,
+  IconButton,
+  GridItem,
+  Grid,
 } from "@chakra-ui/react";
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  CheckCircleIcon,
+} from "@chakra-ui/icons";
+import { useState } from "react";
 
-function Card({ metadata, isOpen, onClose }) {
+function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered={true}>
       <ModalOverlay />
@@ -25,12 +32,14 @@ function Card({ metadata, isOpen, onClose }) {
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <HStack gap={20}>
-            <Image
-              src={metadata.media[0].gateway}
-              fallbackSrc="https://place-hold.it/800"
-            />
-            <Box>
+          <Grid templateColumns={{ base: "", md: "repeat(2, 1fr)" }} gap={10}>
+            <GridItem>
+              <Image
+                src={metadata.media[0].gateway}
+                fallbackSrc="https://place-hold.it/800"
+              />
+            </GridItem>
+            <GridItem>
               <Text fontSize="xl">{metadata.description}</Text>
               <Text fontSize="lg">Token ID: {metadata.tokenId}</Text>
               <Text fontSize="lg">Token Type: {metadata.tokenType}</Text>
@@ -38,13 +47,38 @@ function Card({ metadata, isOpen, onClose }) {
                 Contract Address: {metadata.contract.address}
               </Text>
               <Text>{metadata.rawMetadata.attribute}</Text>
-            </Box>
-          </HStack>
+            </GridItem>
+          </Grid>
         </ModalBody>
         <ModalFooter>
           <ButtonGroup gap={4}>
-            <Button variant="outline">Prev</Button>
-            <Button variant="outline">Next</Button>
+            {isCuration ? (
+              <IconButton
+                variant="outline"
+                size="md"
+                colorScheme={isSelected ? "green" : "gray"}
+                icon={<CheckCircleIcon />}
+                onClick={() => {
+                  setIsSelected(!isSelected);
+                  handleCuration();
+                }}
+                aria-label="Select NFT"
+              />
+            ) : (
+              <></>
+            )}
+            <IconButton
+              variant="outline"
+              size="md"
+              colorScheme="yellow"
+              icon={<ArrowBackIcon />}
+            />
+            <IconButton
+              variant="outline"
+              size="md"
+              colorScheme="orange"
+              icon={<ArrowForwardIcon />}
+            />
           </ButtonGroup>
         </ModalFooter>
       </ModalContent>
