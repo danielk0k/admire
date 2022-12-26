@@ -96,7 +96,9 @@ function Home() {
           </VStack>
         </GridItem>
         {sample.map((metadata, index) => {
-          return <Thumbnail metadata={metadata} key={index} />;
+          return (
+            <Thumbnail metadata={metadata} isCuration={false} key={index} />
+          );
         })}
       </Grid>
       <VStack as="footer" paddingTop={20}>

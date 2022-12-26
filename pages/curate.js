@@ -8,7 +8,13 @@ import Head from "next/head";
 function Curator() {
   const router = useRouter();
   const [NFTs, setNFTs] = useState([]);
+  const [curation, setCuration] = useState([]);
   const { account } = router.query;
+
+  const handleCuration = () => {
+    // Set curation
+    console.log("clicked");
+  };
 
   const fetchNFTs = async () => {
     try {
@@ -25,6 +31,7 @@ function Curator() {
       console.error(error.message);
     }
   };
+
   useEffect(() => fetchNFTs, [account]);
 
   return (
@@ -68,7 +75,14 @@ function Curator() {
           </VStack>
         </GridItem>
         {NFTs.map((metadata, index) => {
-          return <Thumbnail metadata={metadata} key={index} />;
+          return (
+            <Thumbnail
+              metadata={metadata}
+              isCuration={true}
+              handleCuration={handleCuration}
+              key={index}
+            />
+          );
         })}
       </Grid>
       <VStack as="footer" paddingTop={20}>
