@@ -70,7 +70,7 @@ function Home() {
           <VStack gap={6}>
             <Box>
               <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
-              <Text fontSize={{ base: "xl", lg: "3xl" }}>
+              <Text fontSize={{ base: "xl", lg: "2xl" }}>
                 Click Curate Share
               </Text>
               <Text

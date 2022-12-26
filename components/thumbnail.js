@@ -1,23 +1,39 @@
-import { GridItem, Image, useDisclosure } from "@chakra-ui/react";
+import { CheckCircleIcon } from "@chakra-ui/icons";
+import { Box, GridItem, Image, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react";
 import Card from "./card";
 
 function Thumbnail({ metadata, isCuration, handleCuration }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <GridItem colSpan={1}>
+      {isSelected ? (
+        <CheckCircleIcon
+          color="rgb(255,255,255)"
+          position="absolute"
+          boxSize="7"
+          margin={5}
+        />
+      ) : (
+        <></>
+      )}
       <Image
         src={metadata.media[0].gateway}
         fallbackSrc="https://place-hold.it/800"
         onClick={onOpen}
-        opacity="0.95"
-        _hover={{ opacity: "1" }}
+        opacity={isSelected ? "0.7" : "0.95"}
+        _hover={isSelected ? { opacity: "0.7" } : { opacity: "1" }}
       />
       <Card
         metadata={metadata}
         isOpen={isOpen}
         onClose={onClose}
         isCuration={isCuration}
-        handleCuration={handleCuration}
+        handleCuration={() => {
+          setIsSelected(!isSelected);
+          handleCuration();
+        }}
       ></Card>
     </GridItem>
   );

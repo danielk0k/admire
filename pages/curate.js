@@ -1,6 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+  Text,
+  VStack,
+} from "@chakra-ui/layout";
 import alchemy from "../components/alchemy";
 import Thumbnail from "../components/thumbnail";
 import Head from "next/head";
@@ -56,9 +64,15 @@ function Curator() {
           <VStack gap={6}>
             <Box>
               <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
-              <Text fontSize={{ base: "xl", lg: "3xl" }}>
-                Click Curate Share
-              </Text>
+              <Link href={`https://etherscan.io/address/${account}`} isExternal>
+                <Text fontSize={{ base: "xl", lg: "2xl" }}>
+                  {account
+                    ? account.substring(0, 12) +
+                      "..." +
+                      account.substring(32, 42)
+                    : ""}
+                </Text>
+              </Link>
               <Text
                 fontSize={{ base: "sm", md: "md", lg: "lg" }}
                 align="justify"
