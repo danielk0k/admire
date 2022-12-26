@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.14",
     "@chakra-ui/react": "^2.4.4",
     "@metamask/detect-provider": "^2.0.0",
     "@supabase/supabase-js": "^2.2.2",
