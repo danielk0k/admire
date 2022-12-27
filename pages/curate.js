@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   Box,
+  Center,
   Grid,
   GridItem,
   Heading,
@@ -17,10 +18,15 @@ function Curator() {
   const router = useRouter();
   const [NFTs, setNFTs] = useState([]);
   const [curation, setCuration] = useState([]);
+  const [curationNum, setCurationNum] = useState(0);
   const { account } = router.query;
 
   const handleCuration = (index) => {
     curation[index] = !curation[index];
+  };
+
+  const handleCurationNum = () => {
+    setCurationNum(curation.reduce((acc, curr) => (curr ? acc + 1 : acc), 0));
   };
 
   const fetchNFTs = async () => {
@@ -93,12 +99,28 @@ function Curator() {
             <Thumbnail
               metadata={metadata}
               isCuration={true}
-              handleCuration={() => handleCuration(index)}
+              handleCuration={() => {
+                handleCuration(index);
+                handleCurationNum();
+              }}
               key={index}
             />
           );
         })}
       </Grid>
+      <Center>
+        <Box
+          position="fixed"
+          bottom="0"
+          width={{ base: "sm", md: "2xl", lg: "6xl" }}
+          borderRadius={20}
+          backgroundColor="white"
+        >
+          <Heading color="black" size="md" textAlign="center">
+            {curationNum} NFT{curationNum > 1 ? "s" : ""} selected
+          </Heading>
+        </Box>
+      </Center>
       <VStack as="footer" paddingTop={20}>
         <Heading size="md">Admire</Heading>
         <Text fontSize="sm">Click Curate Share</Text>
