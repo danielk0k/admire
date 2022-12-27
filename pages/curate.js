@@ -39,6 +39,7 @@ function Curator() {
       const nfts = await alchemy.nft.getNftsForOwner(
         "0xd02Cf0BFae434D95E634F7A303452b85e14b65a9"
       );
+      console.log(nfts);
       setNFTs([...nfts.ownedNfts]);
       setCuration([...nfts.ownedNfts].fill(false));
     } catch (error) {
