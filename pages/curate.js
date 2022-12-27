@@ -13,6 +13,7 @@ import {
 import alchemy from "../components/alchemy";
 import Thumbnail from "../components/thumbnail";
 import Head from "next/head";
+import { Input, Textarea } from "@chakra-ui/react";
 
 function Curator() {
   const router = useRouter();
@@ -29,24 +30,27 @@ function Curator() {
     setCurationNum(curation.reduce((acc, curr) => (curr ? acc + 1 : acc), 0));
   };
 
-  const fetchNFTs = async () => {
-    try {
-      if (!account) {
-        router.push("/");
-        throw new Error("Missing account. Please connect your MetaMask first!");
+  useEffect(() => {
+    async function fetchNFTs() {
+      try {
+        if (!account) {
+          router.push("/");
+          throw new Error(
+            "Missing account. Please connect your MetaMask first!"
+          );
+        }
+
+        const nfts = await alchemy.nft.getNftsForOwner(
+          "0xd02Cf0BFae434D95E634F7A303452b85e14b65a9"
+        );
+        setNFTs([...nfts.ownedNfts]);
+        setCuration([...nfts.ownedNfts].fill(false));
+      } catch (error) {
+        console.error(error.message);
       }
-
-      const nfts = await alchemy.nft.getNftsForOwner(
-        "0xd02Cf0BFae434D95E634F7A303452b85e14b65a9"
-      );
-      setNFTs([...nfts.ownedNfts]);
-      setCuration([...nfts.ownedNfts].fill(false));
-    } catch (error) {
-      console.error(error.message);
     }
-  };
-
-  useEffect(fetchNFTs, [account]);
+    fetchNFTs();
+  }, [account]);
 
   return (
     <>
@@ -79,18 +83,19 @@ function Curator() {
                     : ""}
                 </Text>
               </Link>
-              <Text
-                fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                align="justify"
-                paddingTop={4}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
-              </Text>
+              <Input
+                placeholder="Title"
+                variant="outline"
+                marginTop={6}
+                borderColor="white"
+              />
+              <Textarea
+                placeholder="Description"
+                variant="outline"
+                marginTop={6}
+                borderColor="white"
+                maxHeight="1"
+              />
             </Box>
           </VStack>
         </GridItem>
