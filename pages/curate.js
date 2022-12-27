@@ -46,7 +46,7 @@ function Curator() {
     }
   };
 
-  useEffect(() => fetchNFTs, [account]);
+  useEffect(fetchNFTs, [account]);
 
   return (
     <>
