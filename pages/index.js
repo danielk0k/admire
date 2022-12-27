@@ -78,12 +78,9 @@ function Home() {
                 align="justify"
                 paddingTop={4}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.
+                A place for owners to curate their own NFT art gallery from
+                their collection, and invite people to admire them from anywhere
+                in the world.
               </Text>
             </Box>
             <Button
@@ -91,7 +88,7 @@ function Home() {
               size={{ base: "sm", md: "md", lg: "lg" }}
               onClick={getAccount}
             >
-              Connect
+              Connect MetaMask
             </Button>
           </VStack>
         </GridItem>
@@ -100,6 +97,14 @@ function Home() {
             <Thumbnail metadata={metadata} isCuration={false} key={index} />
           );
         })}
+        <GridItem>
+          <Heading size={{ base: "2xl", lg: "4xl" }} textAlign="right">
+            1000
+          </Heading>
+          <Text fontSize={{ base: "xl", lg: "2xl" }} textAlign="right">
+            Links Generated
+          </Text>
+        </GridItem>
       </Grid>
       <VStack as="footer" paddingTop={20}>
         <Heading size="md">Admire</Heading>
