@@ -22,6 +22,8 @@ function Curator() {
   const [NFTs, setNFTs] = useState([]);
   const [curation, setCuration] = useState([]);
   const [curationNum, setCurationNum] = useState(0);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const { account } = router.query;
 
   const handleCuration = (index) => {
@@ -43,7 +45,11 @@ function Curator() {
       const { error } = await supabase.from("gallery_links").insert({
         id: nanoid(10),
         created_at: new Date(),
-        data: JSON.stringify(selectedNFTs),
+        data: JSON.stringify({
+          title: title,
+          description: description,
+          data: selectedNFTs,
+        }),
       });
       if (error) {
         throw error;
@@ -111,6 +117,7 @@ function Curator() {
                 variant="outline"
                 marginTop={6}
                 borderColor="white"
+                onChange={(e) => setTitle(e.target.value)}
               />
               <Textarea
                 placeholder="Description"
@@ -118,6 +125,7 @@ function Curator() {
                 marginTop={6}
                 borderColor="white"
                 maxHeight="1"
+                onChange={(e) => setDescription(e.target.value)}
               />
               <Button onClick={uploadCuration}>Create</Button>
             </Box>
