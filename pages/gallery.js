@@ -31,7 +31,7 @@ function Gallery() {
         setDescription(parsedData.description);
         setMetadata(parsedData.data);
       } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         router.push("/");
       }
     }

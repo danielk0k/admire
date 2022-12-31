@@ -60,7 +60,7 @@ function Curator() {
         query: { id: id },
       });
     } catch (error) {
-      console.error(error.message);
+      console.log(error.message);
     }
   };
 
@@ -79,7 +79,7 @@ function Curator() {
         setNFTs([...nfts.ownedNfts]);
         setCuration([...nfts.ownedNfts].fill(false));
       } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         router.push("/");
       }
     }

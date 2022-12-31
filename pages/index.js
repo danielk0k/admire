@@ -39,11 +39,11 @@ function Home() {
           if (err.code === 4001) {
             console.log("Please connect to MetaMask.");
           } else {
-            console.error(err);
+            console.log(err);
           }
         });
     } catch (error) {
-      console.error(error.message);
+      console.log(error.message);
     } finally {
       setLoading(false);
     }
