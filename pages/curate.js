@@ -36,6 +36,7 @@ function Curator() {
 
   const uploadCuration = async () => {
     try {
+      const id = nanoid(10);
       const selectedNFTs = [];
       for (let i = 0; i < NFTs.length; i++) {
         if (curation[i]) {
@@ -43,7 +44,7 @@ function Curator() {
         }
       }
       const { error } = await supabase.from("gallery_links").insert({
-        id: nanoid(10),
+        id: id,
         created_at: new Date(),
         data: JSON.stringify({
           title: title,
@@ -54,6 +55,10 @@ function Curator() {
       if (error) {
         throw error;
       }
+      router.push({
+        pathname: "/gallery",
+        query: { id: id },
+      });
     } catch (error) {
       console.error(error.message);
     }
@@ -63,7 +68,6 @@ function Curator() {
     async function fetchNFTs() {
       try {
         if (!account) {
-          router.push("/");
           throw new Error(
             "Missing account. Please connect your MetaMask first!"
           );
@@ -76,6 +80,7 @@ function Curator() {
         setCuration([...nfts.ownedNfts].fill(false));
       } catch (error) {
         console.error(error.message);
+        router.push("/");
       }
     }
     fetchNFTs();
