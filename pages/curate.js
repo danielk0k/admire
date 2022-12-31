@@ -1,5 +1,9 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import alchemy from "../components/alchemy";
+import supabase from "../components/supabase";
+import { nanoid } from "nanoid";
 import {
   Box,
   Center,
@@ -10,10 +14,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout";
-import alchemy from "../components/alchemy";
+import { Button, Input, Textarea } from "@chakra-ui/react";
 import Thumbnail from "../components/thumbnail";
-import Head from "next/head";
-import { Input, Textarea } from "@chakra-ui/react";
 
 function Curator() {
   const router = useRouter();
@@ -28,6 +30,27 @@ function Curator() {
 
   const handleCurationNum = () => {
     setCurationNum(curation.reduce((acc, curr) => (curr ? acc + 1 : acc), 0));
+  };
+
+  const uploadCuration = async () => {
+    try {
+      const selectedNFTs = [];
+      for (let i = 0; i < NFTs.length; i++) {
+        if (curation[i]) {
+          selectedNFTs.push(NFTs[i]);
+        }
+      }
+      const { error } = await supabase.from("gallery_links").insert({
+        id: nanoid(10),
+        created_at: new Date(),
+        data: JSON.stringify(selectedNFTs),
+      });
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -96,6 +119,7 @@ function Curator() {
                 borderColor="white"
                 maxHeight="1"
               />
+              <Button onClick={uploadCuration}>Create</Button>
             </Box>
           </VStack>
         </GridItem>
