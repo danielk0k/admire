@@ -55,10 +55,13 @@ function Curator() {
       if (error) {
         throw error;
       }
-      router.push({
-        pathname: "/gallery",
-        query: { id: id },
-      });
+      router.push(
+        {
+          pathname: "/sucess",
+          query: { id: id },
+        },
+        "/success"
+      );
     } catch (error) {
       console.log(error.message);
     }
