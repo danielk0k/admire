@@ -1,29 +1,62 @@
-import { Box, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { CopyIcon } from "@chakra-ui/icons";
+import {
+  Heading,
+  HStack,
+  IconButton,
+  Link,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Footer from "../components/footer";
 
 function Success() {
   const router = useRouter();
   const { id } = router.query;
   const [link, setLink] = useState("");
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(link);
+  };
+
   useEffect(() => {
     setLink(`${window.location.origin}/gallery?id=${id}`);
   }, [id]);
+
   return (
     <>
-      <Head></Head>
-      <Box>
-        <Heading>Congratulations!</Heading>
-        <Text>Your link has been created at:</Text>
-        <Link>
-          <Text>{link}</Text>
-        </Link>
-      </Box>
-      <VStack as="footer" paddingTop={20}>
-        <Heading size="md">Admire</Heading>
-        <Text fontSize="sm">Click Curate Share</Text>
+      <Head>
+        <title>Admire</title>
+        <meta name="Admire" content="Curate and share your NFT art gallery." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <VStack>
+        <Heading size={{ base: "2xl", lg: "4xl" }}>Congratulations!</Heading>
+        <Text fontSize={{ base: "xl", lg: "2xl" }}>
+          Your link has been created at:
+        </Text>
+        <HStack
+          spacing={4}
+          borderWidth={1}
+          borderColor="white"
+          borderRadius={10}
+          padding={4}
+        >
+          <Link href={link} isExternal>
+            <Text fontSize={{ base: "xl", lg: "2xl" }}>{link}</Text>
+          </Link>
+          <IconButton
+            aria-label="Copy link"
+            icon={<CopyIcon />}
+            onClick={handleCopy}
+            variant="outline"
+          />
+        </HStack>
       </VStack>
+      <Footer />
     </>
   );
 }
