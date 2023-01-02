@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/layout";
 import { Button, Input, Textarea } from "@chakra-ui/react";
 import Thumbnail from "../components/thumbnail";
+import Footer from "../components/footer";
 
 function Curator() {
   const router = useRouter();
@@ -166,10 +167,7 @@ function Curator() {
           </Heading>
         </Box>
       </Center>
-      <VStack as="footer" paddingTop={20}>
-        <Heading size="md">Admire</Heading>
-        <Text fontSize="sm">Click Curate Share</Text>
-      </VStack>
+      <Footer />
     </>
   );
 }

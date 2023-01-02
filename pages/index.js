@@ -6,6 +6,7 @@ import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
 import Thumbnail from "../components/thumbnail";
 import sample from "../components/sample";
+import Footer from "../components/footer";
 
 function Home() {
   const router = useRouter();
@@ -106,10 +107,7 @@ function Home() {
           </Text>
         </GridItem>
       </Grid>
-      <VStack as="footer" paddingTop={20}>
-        <Heading size="md">Admire</Heading>
-        <Text fontSize="sm">Click Curate Share</Text>
-      </VStack>
+      <Footer />
     </>
   );
 }

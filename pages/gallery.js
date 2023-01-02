@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
 import Thumbnail from "../components/thumbnail";
 import supabase from "../components/supabase";
+import Footer from "../components/footer";
 
 function Gallery() {
   const router = useRouter();
@@ -81,10 +82,7 @@ function Gallery() {
       ) : (
         <></>
       )}
-      <VStack as="footer" paddingTop={20}>
-        <Heading size="md">Admire</Heading>
-        <Text fontSize="sm">Click Curate Share</Text>
-      </VStack>
+      <Footer />
     </>
   );
 }
