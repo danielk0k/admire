@@ -84,6 +84,7 @@ function Home() {
           <Button
             variant="outline"
             size={{ base: "sm", md: "md", lg: "lg" }}
+            marginTop="8"
             onClick={getAccount}
           >
             Connect MetaMask
@@ -94,14 +95,6 @@ function Home() {
             <Thumbnail metadata={metadata} isCuration={false} key={index} />
           );
         })}
-        <GridItem>
-          <Heading size={{ base: "2xl", lg: "4xl" }} textAlign="right">
-            1000
-          </Heading>
-          <Text fontSize={{ base: "xl", lg: "2xl" }} textAlign="right">
-            Links Generated
-          </Text>
-        </GridItem>
       </Grid>
       <Footer />
     </>
