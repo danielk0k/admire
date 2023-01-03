@@ -6,6 +6,8 @@ import Card from "./card";
 function Thumbnail({ metadata, isCuration, handleCuration }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSelected, setIsSelected] = useState(false);
+  const isImgAvail =
+    metadata.media && metadata.media.length === 1 && metadata.media[0].gateway;
   return (
     <GridItem colSpan={1}>
       {isSelected ? (
@@ -19,7 +21,7 @@ function Thumbnail({ metadata, isCuration, handleCuration }) {
         <></>
       )}
       <Image
-        src={metadata.media[0].gateway}
+        src={isImgAvail ? metadata.media[0].gateway : ""}
         fallbackSrc="https://place-hold.it/800"
         onClick={onOpen}
         opacity={isSelected ? "0.7" : "0.95"}

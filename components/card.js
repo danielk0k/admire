@@ -23,6 +23,8 @@ import { useState } from "react";
 
 function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
   const [isSelected, setIsSelected] = useState(false);
+  const isImgAvail =
+    metadata.media && metadata.media.length === 1 && metadata.media[0].gateway;
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered={true}>
       <ModalOverlay />
@@ -35,7 +37,7 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
           <Grid templateColumns={{ base: "", md: "repeat(2, 1fr)" }} gap={10}>
             <GridItem>
               <Image
-                src={metadata.media[0].gateway}
+                src={isImgAvail ? metadata.media[0].gateway : ""}
                 fallbackSrc="https://place-hold.it/800"
               />
             </GridItem>
@@ -46,7 +48,7 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
               <Text fontSize="lg">
                 Contract Address: {metadata.contract.address}
               </Text>
-              <Text>{metadata.rawMetadata.attribute}</Text>
+              {/* <Text>{metadata.rawMetadata.attributes}</Text> */}
             </GridItem>
           </Grid>
         </ModalBody>
@@ -60,6 +62,7 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
                 icon={<CheckCircleIcon />}
                 onClick={() => {
                   setIsSelected(!isSelected);
+                  onClose();
                   handleCuration();
                 }}
                 aria-label="Select NFT"
