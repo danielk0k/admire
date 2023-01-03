@@ -16,9 +16,9 @@ function Gallery() {
   useEffect(() => {
     async function fetchNFTs() {
       try {
+        if (!router.isReady) return;
         if (!id) {
-          // throw new Error("Missing id. Please try again.");
-          return;
+          throw new Error("Missing id. Please try again.");
         }
         const { data, error } = await supabase
           .from("gallery_links")
@@ -37,7 +37,7 @@ function Gallery() {
       }
     }
     fetchNFTs();
-  }, [id]);
+  }, [router.isReady]);
 
   return (
     <>

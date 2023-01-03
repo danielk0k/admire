@@ -72,7 +72,7 @@ function Curator() {
       }
       router.push(
         {
-          pathname: "/sucess",
+          pathname: "/success",
           query: { id: id },
         },
         "/success"
@@ -92,7 +92,9 @@ function Curator() {
             "Missing account. Please connect your MetaMask first!"
           );
         }
-        const nfts = await alchemy.nft.getNftsForOwner(account);
+        const nfts = await alchemy.nft.getNftsForOwner(
+          "0x47BB52804C5d8Ea1a4969e3DF4bc49ee1ED6f070"
+        );
         setNFTs([...nfts.ownedNfts]);
         setCuration([...nfts.ownedNfts].fill(false));
       } catch (error) {

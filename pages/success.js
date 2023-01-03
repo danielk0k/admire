@@ -14,7 +14,6 @@ import Footer from "../components/footer";
 
 function Success() {
   const router = useRouter();
-  const { id } = router.query;
   const [link, setLink] = useState("");
 
   const handleCopy = () => {
@@ -22,8 +21,18 @@ function Success() {
   };
 
   useEffect(() => {
-    setLink(`${window.location.origin}/gallery?id=${id}`);
-  }, [id]);
+    try {
+      if (!router.isReady) return;
+      const { id } = router.query;
+      if (!id) {
+        throw new Error("Missing id. Please try again.");
+      }
+      setLink(`${window.location.origin}/gallery?id=${id}`);
+    } catch (error) {
+      console.log(error.message);
+      router.push("/");
+    }
+  }, [router.isReady]);
 
   return (
     <>
