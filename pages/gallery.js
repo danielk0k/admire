@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
 import Thumbnail from "../components/thumbnail";
 import supabase from "../components/supabase";
 import Footer from "../components/footer";
@@ -59,19 +59,17 @@ function Gallery() {
           as="main"
         >
           <GridItem colSpan={1}>
-            <VStack gap={6}>
-              <Box>
-                <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
-                <Text fontSize={{ base: "xl", lg: "2xl" }}>{title}</Text>
-                <Text
-                  fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                  align="justify"
-                  paddingTop={4}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </VStack>
+            <Box>
+              <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
+              <Text fontSize={{ base: "xl", lg: "2xl" }}>{title}</Text>
+              <Text
+                fontSize={{ base: "sm", md: "md", lg: "lg" }}
+                align="justify"
+                paddingTop={4}
+              >
+                {description}
+              </Text>
+            </Box>
           </GridItem>
           {metadata.map((metadata, index) => {
             return (

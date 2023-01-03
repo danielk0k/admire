@@ -1,7 +1,7 @@
 import Head from "next/head";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { useState } from "react";
-import { Box, Grid, GridItem, Heading, Text, VStack } from "@chakra-ui/layout";
+import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
 import Thumbnail from "../components/thumbnail";
@@ -68,30 +68,26 @@ function Home() {
         as="main"
       >
         <GridItem colSpan={1}>
-          <VStack gap={6}>
-            <Box>
-              <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
-              <Text fontSize={{ base: "xl", lg: "2xl" }}>
-                Click Curate Share
-              </Text>
-              <Text
-                fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                align="justify"
-                paddingTop={4}
-              >
-                A place for owners to curate their own NFT art gallery from
-                their collection, and invite people to admire them from anywhere
-                in the world.
-              </Text>
-            </Box>
-            <Button
-              variant="outline"
-              size={{ base: "sm", md: "md", lg: "lg" }}
-              onClick={getAccount}
+          <Box>
+            <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
+            <Text fontSize={{ base: "xl", lg: "2xl" }}>Click Curate Share</Text>
+            <Text
+              fontSize={{ base: "sm", md: "md", lg: "lg" }}
+              align="justify"
+              paddingTop={4}
             >
-              Connect MetaMask
-            </Button>
-          </VStack>
+              A place for owners to curate their own NFT art gallery from their
+              collection, and invite people to admire them from anywhere in the
+              world.
+            </Text>
+          </Box>
+          <Button
+            variant="outline"
+            size={{ base: "sm", md: "md", lg: "lg" }}
+            onClick={getAccount}
+          >
+            Connect MetaMask
+          </Button>
         </GridItem>
         {sample.map((metadata, index) => {
           return (
