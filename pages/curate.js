@@ -14,17 +14,27 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout";
-import { Button, Input, Textarea } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Textarea,
+} from "@chakra-ui/react";
 import Thumbnail from "../components/thumbnail";
 import Footer from "../components/footer";
 
 function Curator() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [NFTs, setNFTs] = useState([]);
   const [curation, setCuration] = useState([]);
   const [curationNum, setCurationNum] = useState(0);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("HODL");
+  const [description, setDescription] = useState("I am rich");
+  const isTitleErr = title === "";
+  const isDescriptionErr = description === "";
   const { account } = router.query;
 
   const handleCuration = (index) => {
@@ -37,6 +47,10 @@ function Curator() {
 
   const uploadCuration = async () => {
     try {
+      setIsLoading(true);
+      if (isTitleErr || isDescriptionErr) {
+        throw new Error("All fields must be filled.");
+      }
       const id = nanoid(10);
       const selectedNFTs = [];
       for (let i = 0; i < NFTs.length; i++) {
@@ -65,6 +79,8 @@ function Curator() {
       );
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,36 +122,60 @@ function Curator() {
         as="main"
       >
         <GridItem colSpan={1}>
-          <VStack gap={6}>
-            <Box>
-              <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
-              <Link href={`https://etherscan.io/address/${account}`} isExternal>
-                <Text fontSize={{ base: "xl", lg: "2xl" }}>
-                  {account
-                    ? account.substring(0, 12) +
-                      "..." +
-                      account.substring(32, 42)
-                    : ""}
-                </Text>
-              </Link>
-              <Input
-                placeholder="Title"
+          <Box>
+            <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
+            <Link href={`https://etherscan.io/address/${account}`} isExternal>
+              <Text fontSize={{ base: "xl", lg: "2xl" }}>
+                {account
+                  ? account.substring(0, 12) + "..." + account.substring(32, 42)
+                  : ""}
+              </Text>
+            </Link>
+            <VStack spacing={4}>
+              <FormControl isRequired isInvalid={isTitleErr}>
+                <FormLabel fontSize="xl">Title</FormLabel>
+                <Input
+                  type="text"
+                  variant="outline"
+                  borderColor="white"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                {isTitleErr ? (
+                  <FormErrorMessage>Title is required.</FormErrorMessage>
+                ) : (
+                  <></>
+                )}
+              </FormControl>
+              <FormControl isRequired isInvalid={isDescriptionErr}>
+                <FormLabel fontSize="xl">Description</FormLabel>
+                <Textarea
+                  type="text"
+                  variant="outline"
+                  borderColor="white"
+                  maxHeight="1"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                {isDescriptionErr ? (
+                  <FormErrorMessage>Description is required.</FormErrorMessage>
+                ) : (
+                  <></>
+                )}
+              </FormControl>
+              <Button
+                width="100%"
                 variant="outline"
-                marginTop={6}
-                borderColor="white"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <Textarea
-                placeholder="Description"
-                variant="outline"
-                marginTop={6}
-                borderColor="white"
-                maxHeight="1"
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <Button onClick={uploadCuration}>Create</Button>
-            </Box>
-          </VStack>
+                colorScheme="cyan"
+                isLoading={isLoading}
+                loadingText="Creating"
+                spinnerPlacement="end"
+                onClick={uploadCuration}
+              >
+                Create
+              </Button>
+            </VStack>
+          </Box>
         </GridItem>
         {NFTs.map((metadata, index) => {
           return (
