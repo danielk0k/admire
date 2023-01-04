@@ -15,6 +15,9 @@ import {
   Grid,
   Stack,
   VStack,
+  Box,
+  Link,
+  Button,
 } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
@@ -22,6 +25,7 @@ import {
   CheckCircleIcon,
 } from "@chakra-ui/icons";
 import { useState } from "react";
+import Attribute from "./attribute";
 
 function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
   const [isSelected, setIsSelected] = useState(false);
@@ -65,9 +69,21 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
               </Text>
               <Text fontSize="lg">
                 <Text as="b">Contract Address: </Text>
-                {metadata.contract.address}
+                <Link
+                  href={`https://etherscan.io/address/${metadata.contract.address}`}
+                  isExternal
+                >
+                  {metadata.contract.address}
+                </Link>
               </Text>
-              {/* <Text>{metadata.rawMetadata.attributes}</Text> */}
+              <Text fontSize="lg" as="b">
+                Attributes:
+              </Text>
+              <Box display="inline-list-item">
+                {metadata.rawMetadata.attributes.map((attr, index) => (
+                  <Attribute attr={attr} key={index} />
+                ))}
+              </Box>
             </VStack>
           </Stack>
         </ModalBody>
@@ -89,18 +105,7 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
             ) : (
               <></>
             )}
-            <IconButton
-              variant="outline"
-              size="md"
-              colorScheme="yellow"
-              icon={<ArrowBackIcon />}
-            />
-            <IconButton
-              variant="outline"
-              size="md"
-              colorScheme="orange"
-              icon={<ArrowForwardIcon />}
-            />
+            <Button onClick={onClose}>Close</Button>
           </ButtonGroup>
         </ModalFooter>
       </ModalContent>
