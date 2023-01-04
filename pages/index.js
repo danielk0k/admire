@@ -1,7 +1,15 @@
 import Head from "next/head";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { useState } from "react";
-import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  ListItem,
+  OrderedList,
+  Text,
+} from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
 import Thumbnail from "../components/thumbnail";
@@ -10,7 +18,7 @@ import Footer from "../components/footer";
 
 function Home() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAccounts = (accounts) => {
     if (accounts.length === 0) {
@@ -28,7 +36,7 @@ function Home() {
 
   const getAccount = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const provider = await detectEthereumProvider();
       if (!provider || provider !== window.ethereum) {
         throw new Error("Please install MetaMask!");
@@ -46,7 +54,7 @@ function Home() {
     } catch (error) {
       console.log(error.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
   return (
@@ -72,19 +80,27 @@ function Home() {
             <Heading size={{ base: "2xl", lg: "4xl" }}>Admire</Heading>
             <Text fontSize={{ base: "xl", lg: "2xl" }}>Click Curate Share</Text>
             <Text
-              fontSize={{ base: "sm", md: "md", lg: "lg" }}
+              fontSize="lg"
               align="justify"
-              paddingTop={4}
+              paddingTop={8}
+              paddingBottom={4}
             >
-              A place for owners to curate their own NFT art gallery from their
-              collection, and invite people to admire them from anywhere in the
-              world.
+              Curate your very own NFT gallery in 3 easy steps:
             </Text>
+            <OrderedList spacing={4} fontSize="lg">
+              <ListItem>Connect your MetaMask wallet</ListItem>
+              <ListItem>Select your NFTs and customise your gallery</ListItem>
+              <ListItem>Generate the link and start sharing</ListItem>
+            </OrderedList>
           </Box>
           <Button
             variant="outline"
+            colorScheme="cyan"
             size={{ base: "sm", md: "md", lg: "lg" }}
             marginTop="8"
+            isLoading={isLoading}
+            loadingText="Connecting"
+            spinnerPlacement="end"
             onClick={getAccount}
           >
             Connect MetaMask
