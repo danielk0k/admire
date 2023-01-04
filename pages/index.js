@@ -61,9 +61,31 @@ function Home() {
     <>
       <Head>
         <title>Admire</title>
-        <meta name="Admire" content="Curate and share your NFT art gallery." />
+        <meta name="title" content="Admire" />
+        <meta
+          name="description"
+          content="Curate and share your NFT gallery in 3 simple steps."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://admireme.vercel.app/" />
+        <meta property="og:title" content="Admire" />
+        <meta
+          property="og:description"
+          content="Curate and share your NFT gallery in 3 simple steps."
+        />
+        <meta property="og:image" content="/images/preview.png" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://admireme.vercel.app/" />
+        <meta property="twitter:title" content="Admire" />
+        <meta
+          property="twitter:description"
+          content="Curate and share your NFT gallery in 3 simple steps."
+        />
+        <meta property="twitter:image" content="/images/preview.png" />
       </Head>
       <Grid
         templateColumns={{
