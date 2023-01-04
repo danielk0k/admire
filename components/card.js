@@ -13,6 +13,8 @@ import {
   IconButton,
   GridItem,
   Grid,
+  Stack,
+  VStack,
 } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
@@ -26,31 +28,48 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
   const isImgAvail =
     metadata.media && metadata.media.length === 1 && metadata.media[0].gateway;
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered={true}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={{ base: "xl", md: "4xl", lg: "6xl" }}
+      isCentered
+      scrollBehavior="inside"
+    >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          <Heading size="xl">{metadata.title}</Heading>
-        </ModalHeader>
+        <ModalHeader fontSize="2xl">{metadata.title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Grid templateColumns={{ base: "", md: "repeat(2, 1fr)" }} gap={10}>
-            <GridItem>
-              <Image
-                src={isImgAvail ? metadata.media[0].gateway : ""}
-                fallbackSrc="https://place-hold.it/800"
-              />
-            </GridItem>
-            <GridItem>
-              <Text fontSize="xl">{metadata.description}</Text>
-              <Text fontSize="lg">Token ID: {metadata.tokenId}</Text>
-              <Text fontSize="lg">Token Type: {metadata.tokenType}</Text>
+          <Stack direction={{ base: "column", md: "row" }} spacing={8}>
+            <Image
+              src={isImgAvail ? metadata.media[0].gateway : ""}
+              fallbackSrc="https://place-hold.it/800"
+              width={{ base: "100%", md: "50%" }}
+            />
+            <VStack
+              width={{ base: "100%", md: "50%" }}
+              align="left"
+              spacing={4}
+            >
+              <Text fontSize="xl">
+                <Text as="b">Description: </Text>
+                {metadata.description}
+              </Text>
               <Text fontSize="lg">
-                Contract Address: {metadata.contract.address}
+                <Text as="b">Token ID: </Text>
+                {metadata.tokenId}
+              </Text>
+              <Text fontSize="lg">
+                <Text as="b">Token Type: </Text>
+                {metadata.tokenType}
+              </Text>
+              <Text fontSize="lg">
+                <Text as="b">Contract Address: </Text>
+                {metadata.contract.address}
               </Text>
               {/* <Text>{metadata.rawMetadata.attributes}</Text> */}
-            </GridItem>
-          </Grid>
+            </VStack>
+          </Stack>
         </ModalBody>
         <ModalFooter>
           <ButtonGroup gap={4}>
