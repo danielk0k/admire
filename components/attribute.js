@@ -1,26 +1,25 @@
-import { Text } from "@chakra-ui/react";
+import { GridItem, Text } from "@chakra-ui/react";
 
 function Attribute({ attr }) {
   return (
-    <Text
-      as="b"
-      color="#2ecc71"
+    <GridItem
       borderWidth={1}
-      borderRadius="full"
-      borderColor="#2ecc71"
+      borderRadius="xl"
+      borderColor="#e67e22"
       padding={2}
       paddingLeft={3}
       paddingRight={3}
-      marginRight={6}
       textAlign="center"
-      transition="background-color 0.5s, text-color 0.5s"
+      color="#e67e22"
+      transition="border-color 0.5s, text-color 0.5s"
       _hover={{
-        backgroundColor: "#2ecc71",
-        textColor: "#ffffff",
+        borderColor: "#f39c12",
+        textColor: "#f39c12",
       }}
     >
-      {attr.trait_type}
-    </Text>
+      <Text as="b">{attr.trait_type}</Text>
+      <Text>{attr.value}</Text>
+    </GridItem>
   );
 }
 

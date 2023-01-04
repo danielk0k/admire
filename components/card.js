@@ -7,30 +7,27 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  Heading,
   ButtonGroup,
   Image,
   IconButton,
-  GridItem,
   Grid,
   Stack,
   VStack,
-  Box,
   Link,
   Button,
 } from "@chakra-ui/react";
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  CheckCircleIcon,
-} from "@chakra-ui/icons";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import Attribute from "./attribute";
 
 function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
   const [isSelected, setIsSelected] = useState(false);
   const isImgAvail =
-    metadata.media && metadata.media.length === 1 && metadata.media[0].gateway;
+    metadata.media && metadata.media.length > 0 && metadata.media[0].gateway;
+  const isAttrAvail =
+    metadata.rawMetadata &&
+    metadata.rawMetadata.attributes &&
+    metadata.rawMetadata.attributes.length > 0;
   return (
     <Modal
       isOpen={isOpen}
@@ -79,11 +76,15 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
               <Text fontSize="lg" as="b">
                 Attributes:
               </Text>
-              <Box display="inline-list-item">
-                {metadata.rawMetadata.attributes.map((attr, index) => (
-                  <Attribute attr={attr} key={index} />
-                ))}
-              </Box>
+              <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+                {isAttrAvail ? (
+                  metadata.rawMetadata.attributes.map((attr, index) => (
+                    <Attribute attr={attr} key={index} />
+                  ))
+                ) : (
+                  <></>
+                )}
+              </Grid>
             </VStack>
           </Stack>
         </ModalBody>
