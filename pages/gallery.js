@@ -9,6 +9,7 @@ import {
   HStack,
   Link,
   Text,
+  VStack,
 } from "@chakra-ui/layout";
 import Thumbnail from "../components/thumbnail";
 import supabase from "../components/supabase";
@@ -26,6 +27,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
+import { TwitterIcon } from "../components/icons";
 
 function Gallery() {
   const router = useRouter();
@@ -78,29 +80,50 @@ function Gallery() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={{ base: "md", md: "4xl" }}
+        scrollBehavior="inside"
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Congratulations!</ModalHeader>
+          <ModalHeader fontSize="2xl">Congratulations!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Your link has been created at:</Text>
-            <HStack
-              borderWidth={1}
-              borderColor="white"
-              borderRadius={10}
-              padding={4}
-            >
-              <Link href={link} isExternal>
-                <Text>{link}</Text>
-              </Link>
-              <IconButton
-                aria-label="Copy link"
-                icon={<CopyIcon />}
-                onClick={handleCopy}
-                variant="outline"
-              />
-            </HStack>
+            <VStack align="left" spacing={4}>
+              <Text fontSize={{ md: "lg" }}>
+                Your gallery link has been successfully created. Share your
+                gallery via{" "}
+                <Link
+                  href={`https://twitter.com/intent/tweet?text=Check%20out%20the%20NFT%20gallery%20I%20just%20created%20on%20Admire%F0%9F%8C%9F%20at%20${link}`}
+                  isExternal
+                >
+                  Twitter <TwitterIcon />
+                </Link>{" "}
+                or copy the link as it will only be shown once.
+              </Text>
+              <HStack
+                borderWidth={1}
+                borderColor="white"
+                borderRadius={10}
+                padding={2}
+              >
+                <Link href={link} width="95%" isExternal>
+                  <Text fontSize={{ md: "lg" }} as="b">
+                    {link}
+                  </Text>
+                </Link>
+                <IconButton
+                  aria-label="Copy link"
+                  width="5%"
+                  icon={<CopyIcon />}
+                  onClick={handleCopy}
+                  variant="solid"
+                />
+              </HStack>
+            </VStack>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
