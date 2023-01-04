@@ -1,17 +1,44 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Link,
+  Text,
+} from "@chakra-ui/layout";
 import Thumbnail from "../components/thumbnail";
 import supabase from "../components/supabase";
 import Footer from "../components/footer";
+import {
+  Button,
+  IconButton,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { CopyIcon } from "@chakra-ui/icons";
 
 function Gallery() {
   const router = useRouter();
   const [metadata, setMetadata] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { id } = router.query;
+  const [link, setLink] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { id, showModal } = router.query;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(link);
+  };
 
   useEffect(() => {
     async function fetchNFTs() {
@@ -19,6 +46,10 @@ function Gallery() {
         if (!router.isReady) return;
         if (!id) {
           throw new Error("Missing id. Please try again.");
+        }
+        if (showModal) {
+          setLink(`${window.location.origin}/gallery?id=${id}`);
+          onOpen();
         }
         const { data, error } = await supabase
           .from("gallery_links")
@@ -47,6 +78,35 @@ function Gallery() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Congratulations!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Your link has been created at:</Text>
+            <HStack
+              borderWidth={1}
+              borderColor="white"
+              borderRadius={10}
+              padding={4}
+            >
+              <Link href={link} isExternal>
+                <Text>{link}</Text>
+              </Link>
+              <IconButton
+                aria-label="Copy link"
+                icon={<CopyIcon />}
+                onClick={handleCopy}
+                variant="outline"
+              />
+            </HStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       {id ? (
         <Grid
           templateColumns={{

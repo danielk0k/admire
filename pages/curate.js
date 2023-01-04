@@ -72,10 +72,10 @@ function Curator() {
       }
       router.push(
         {
-          pathname: "/success",
-          query: { id: id },
+          pathname: "/gallery",
+          query: { id: id, showModal: true },
         },
-        "/success"
+        "/gallery"
       );
     } catch (error) {
       console.log(error.message);
