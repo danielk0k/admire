@@ -191,19 +191,21 @@ function Curator() {
           );
         })}
       </Grid>
-      <Center>
-        <Box
-          position="fixed"
-          bottom="0"
-          width={{ base: "sm", md: "2xl", lg: "6xl" }}
-          borderRadius={20}
-          backgroundColor="white"
-        >
-          <Heading color="black" size="md" textAlign="center">
-            {curationNum} NFT{curationNum > 1 ? "s" : ""} selected
-          </Heading>
-        </Box>
-      </Center>
+      <Box
+        position="fixed"
+        display="flex"
+        bottom="5"
+        right="5"
+        minHeight={14}
+        minWidth={14}
+        borderRadius="50%"
+        backgroundColor="white"
+        textColor="black"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Heading>{curationNum}</Heading>
+      </Box>
       <Footer />
     </>
   );

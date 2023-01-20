@@ -51,40 +51,59 @@ function Card({ metadata, isOpen, onClose, isCuration, handleCuration }) {
               width={{ base: "100%", md: "50%" }}
               align="left"
               spacing={4}
+              lineHeight={2}
             >
-              <Text fontSize="xl">
-                <Text as="b">Description: </Text>
-                {metadata.description}
-              </Text>
-              <Text fontSize="lg">
-                <Text as="b">Token ID: </Text>
-                {metadata.tokenId}
-              </Text>
-              <Text fontSize="lg">
-                <Text as="b">Token Type: </Text>
-                {metadata.tokenType}
-              </Text>
-              <Text fontSize="lg">
-                <Text as="b">Contract Address: </Text>
-                <Link
-                  href={`https://etherscan.io/address/${metadata.contract.address}`}
-                  isExternal
-                >
-                  {metadata.contract.address}
-                </Link>
-              </Text>
-              <Text fontSize="lg" as="b">
-                Attributes:
-              </Text>
-              <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-                {isAttrAvail ? (
-                  metadata.rawMetadata.attributes.map((attr, index) => (
-                    <Attribute attr={attr} key={index} />
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Grid>
+              {metadata.description ? (
+                <Text fontSize="lg">
+                  <Text as="b">Description: </Text>
+                  {metadata.description}
+                </Text>
+              ) : (
+                <></>
+              )}
+              {metadata.tokenId ? (
+                <Text fontSize="lg">
+                  <Text as="b">Token ID: </Text>
+                  {metadata.tokenId}
+                </Text>
+              ) : (
+                <></>
+              )}
+              {metadata.tokenType ? (
+                <Text fontSize="lg">
+                  <Text as="b">Token Type: </Text>
+                  {metadata.tokenType}
+                </Text>
+              ) : (
+                <></>
+              )}
+              {metadata.contract.address ? (
+                <Text fontSize="lg">
+                  <Text as="b">Contract Address: </Text>
+                  <Link
+                    href={`https://etherscan.io/address/${metadata.contract.address}`}
+                    isExternal
+                  >
+                    {metadata.contract.address}
+                  </Link>
+                </Text>
+              ) : (
+                <></>
+              )}
+              {isAttrAvail ? (
+                <>
+                  <Text fontSize="lg" as="b">
+                    Attributes:
+                  </Text>
+                  <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+                    {metadata.rawMetadata.attributes.map((attr, index) => (
+                      <Attribute attr={attr} key={index} />
+                    ))}
+                  </Grid>
+                </>
+              ) : (
+                <></>
+              )}
             </VStack>
           </Stack>
         </ModalBody>
