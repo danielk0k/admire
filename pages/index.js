@@ -26,10 +26,10 @@ function Home() {
     } else {
       router.push(
         {
-          pathname: "/curate",
+          pathname: "/select",
           query: { account: accounts[0] },
         },
-        "/curate"
+        "/select"
       );
     }
   };
