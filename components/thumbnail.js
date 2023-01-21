@@ -12,10 +12,11 @@ function Thumbnail({ metadata, isCuration, handleCuration }) {
     <GridItem colSpan={1}>
       {isSelected ? (
         <CheckCircleIcon
-          color="rgb(255,255,255)"
+          color="white"
           position="absolute"
-          boxSize="7"
-          margin={5}
+          zIndex="overlay"
+          boxSize="8"
+          margin={4}
         />
       ) : (
         <></>
