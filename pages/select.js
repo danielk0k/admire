@@ -78,7 +78,7 @@ function Curator() {
           );
         }
         const nfts = await alchemy.nft.getNftsForOwner(
-          "0xaBa43b424C51886C6946dD7E1322E8a1A52C5f36"
+            account
         );
         setNFTs([...nfts.ownedNfts]);
         setCuration([...nfts.ownedNfts].fill(false));
