@@ -34,7 +34,6 @@ import {
 function Curator() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(false);
   const [NFTs, setNFTs] = useState([]);
   const [account, setAccount] = useState("");
   const [title, setTitle] = useState("HODL");
@@ -43,9 +42,6 @@ function Curator() {
   const isDescriptionErr = description === "";
   const { accountAddr, selectedNFTs } = router.query;
   const toast = useToast();
-
-  const mobileView = window.matchMedia("(max-width: 62em)");
-  mobileView.addEventListener("change", (e) => setIsMobileView(e.matches));
 
   const uploadCuration = async () => {
     try {
@@ -127,10 +123,7 @@ function Curator() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable
-          droppableId="droppableList"
-          direction={isMobileView ? "vertical" : "horizontal"}
-        >
+        <Droppable droppableId="droppableList">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <Grid

@@ -77,7 +77,9 @@ function Curator() {
             "Missing account. Please connect your MetaMask first."
           );
         }
-        const nfts = await alchemy.nft.getNftsForOwner(account);
+        const nfts = await alchemy.nft.getNftsForOwner(
+          "0xaBa43b424C51886C6946dD7E1322E8a1A52C5f36"
+        );
         setNFTs([...nfts.ownedNfts]);
         setCuration([...nfts.ownedNfts].fill(false));
       } catch (error) {
