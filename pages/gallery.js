@@ -35,10 +35,12 @@ function Gallery() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { id, showModal } = router.query;
 
   const handleCopy = () => {
+    setIsCopied(true);
     navigator.clipboard.writeText(link);
   };
 
@@ -115,13 +117,13 @@ function Gallery() {
                     {link}
                   </Text>
                 </Link>
-                <IconButton
-                  aria-label="Copy link"
-                  width="5%"
-                  icon={<CopyIcon />}
+                <Button
+                  leftIcon={<CopyIcon />}
                   onClick={handleCopy}
                   variant="solid"
-                />
+                >
+                  {isCopied ? "Copied" : "Copy"}
+                </Button>
               </HStack>
             </VStack>
           </ModalBody>
